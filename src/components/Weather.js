@@ -1,5 +1,5 @@
 import React from 'react'
-import {VictoryChart, VictoryLine} from 'victory'
+import {VictoryChart, VictoryLine, VictoryAxis} from 'victory'
 
 function Weather() {
 
@@ -25,7 +25,8 @@ function Weather() {
         y="actual"
     />
         </VictoryChart>
-    )
+    )   
+    
 }
 
 export default Weather;
