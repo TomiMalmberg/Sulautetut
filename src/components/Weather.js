@@ -1,15 +1,18 @@
 import React from 'react'
-import {VictoryChart, VictoryLine, VictoryBar, VictoryAxis, VictoryTheme} from 'victory'
+import {VictoryChart, VictoryLine, VictoryBar, VictoryTheme, VictoryLabel, VictoryScatter, VictoryVoronoiContainer} from 'victory'
 
 function Weather() {
   
     const data = [
-        {quarter: 1, earnings: 1600},
-        {quarter: 2, earnings: 1500},
-        {quarter: 3, earnings: 1400},
-        {quarter: 4, earnings: 1200},
-        {quarter: 5, earnings: 1000}
+        {quarter: "1.1", earnings: "25"},
+        {quarter: "2.1", earnings: "35"},
+        {quarter: "3.1", earnings: "40"},
+        {quarter: "4.1", earnings: "45"},
+        {quarter: "5.1", earnings: "40"},
+        {quarter: "6.1", earnings: "55"}
+
     ]
+    
     return (
         <div aling="middle">
         <h1> Lämpötila </h1>
@@ -18,24 +21,43 @@ function Weather() {
         <VictoryChart
         domainPadding={{x: 30, y:10}}
             width={1000}
-            height={250}>
+            height={250}
+            
+     containerComponent={
+    <VictoryVoronoiContainer
+      mouseFollowTooltips
+      voronoiDimension="x"
+      labels={({ datum }) => `y: ${datum.y },
+      x: ${datum.x}`}
+    />
+  }
+>
 
+<VictoryScatter
+  	style={{ data: { fill: "red" }, labels: { fill: "red" } }}
+    data={[ 
+        {x: "1.1", y:-10}, {x: "2.1", y:-5}, {x: "3.1", y:0}, {x: "4.1", y:2}, {x: "5.1", y:5}, {x: "6.1", y: 12}
+    ]}
+/>
         <VictoryLine
             data={[
-                {experiment: "1.1.", actual: -10},
-                {experiment: "2.1.", actual: -5},
-                {experiment: "3.1.", actual: 0},
-                {experiment: "4.1.", actual: 2},
-                {experiment: "5.1.", actual: 5},
-                {experiment: "6.1.", actual: 12}
+                {experiment: "1.1", actual: -10},
+                {experiment: "2.1", actual: -5},
+                {experiment: "3.1", actual: 0},
+                {experiment: "4.1", actual: 2},
+                {experiment: "5.1", actual: 5},
+                {experiment: "6.1", actual: 12}
             ]}
             
         style={{data:
-            {stroke: "green", strokeWidth: 2}
+          
+            {stroke: "blue", strokeWidth: 2}
         }}
         x="experiment"
         y="actual"
     />
+
+
     </VictoryChart>
     
         <div>
@@ -43,27 +65,30 @@ function Weather() {
         </div>
  
     <VictoryChart
+
+    const  color = "#969696"
+         theme={VictoryTheme.material}
         domainPadding={{x: 30, y:10}}
             width={1000}
             height={250}>
-<VictoryTheme
-    theme={VictoryTheme.material}
-    domainPadding={20}
-/>
-
-<VictoryAxis
-          tickValues={[1, 2, 3, 4]}
-          tickFormat={["1600", "1400", "1200", "1000", "900"]}
-          />
-
 
         
             <VictoryBar
             data={data}
             x="quarter"
             y="earnings"
-        
+/>
+            <VictoryBar
+            data={[
+            {x: 1.1, y: 1,  label: "25%"},
+            {x: 2.1, y: 2,  label: "35%"},
+            {x: 3.1, y: 3,  label: "40%"},
+            {x: 4.1, y: 4,  label: "45%"},
+            {x: 5.1, y: 3,  label: "40%"},
+            {x: 6.1, y: 5,  label: "55%"},
+                      ]}
         />
+
         </VictoryChart>
         </div>
     
@@ -72,7 +97,6 @@ function Weather() {
 
         
      
-    
 }
 
 export default Weather;
