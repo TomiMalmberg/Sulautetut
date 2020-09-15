@@ -24,7 +24,9 @@ function Weather() {
       .then(json => setWeather([...json]));
 
       const rows = () => weather.slice(0, 24).reverse().map(temphum => {
-          return <div>{temphum.PublishedAt}-------{temphum.Hum}--------{temphum.Temp}</div>
+          const measurementDate = temphum.PublishedAt.split('T')[0].split('-')[2] + '.' + temphum.PublishedAt.split('T')[0].split('-')[1] + '.' + temphum.PublishedAt.split('T')[0].split('-')[0]
+          const measurementTime = temphum.PublishedAt.split('T')[1].split(':')[1] + ':' + temphum.PublishedAt.split('T')[1].split(':')[1]
+          return <div> <b>Pvm: </b> {measurementDate}, <b>klo:</b> {measurementTime}--------<b>Ilmankosteus:</b> {temphum.Hum.split('.')[0]}%--------<b>Lämpötila:</b> {temphum.Temp.split('.')[0]}</div>
       })
 
     return (
