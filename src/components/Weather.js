@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { VictoryChart, VictoryLine, VictoryBar, VictoryTheme, VictoryScatter, VictoryVoronoiContainer } from 'victory'
+import { VictoryChart, VictoryLine, VictoryBar, VictoryTheme, VictoryScatter, VictoryVoronoiContainer, VictoryAxis, VictoryGroup, VictoryTooltip } from 'victory'
 
 function Weather() {
 
@@ -19,25 +19,21 @@ function Weather() {
     let chartTempDataDots = [];
     let chartTempDataLine = [];
     let charthumData = [];
-    let chartData = [];
+    let chartTickFormat = [];
+    let CountID = 0;
     const rows = () => weather.slice(0, 24).reverse().map(temphum => {
         const measurementDate = temphum.PublishedAt.split('T')[0].split('-')[2] + '.' + temphum.PublishedAt.split('T')[0].split('-')[1] + '.' + temphum.PublishedAt.split('T')[0].split('-')[0]
-        const measurementTime = temphum.PublishedAt.split('T')[1].split(':')[1] + ':' + temphum.PublishedAt.split('T')[1].split(':')[1]
+        const measurementTime = temphum.PublishedAt.split('T')[1].split(':')[0] + ':' + temphum.PublishedAt.split('T')[1].split(':')[1]
         chartTempDataDots.push({ x: String(measurementTime), y: parseInt(temphum.Temp) });
         chartTempDataLine.push({ experiment: String(measurementTime), actual: parseInt(temphum.Temp) });
-        charthumData.push({ xbar: String(measurementTime), ybar: parseInt(temphum.Hum)+"%" });
-        chartData.push({ quarter: String(measurementTime), earnings: parseInt(temphum.Hum) });
-        return <div> <b>Pvm: </b> {measurementDate}, <b>klo:</b> {measurementTime}--------<b>Ilmankosteus:</b> {temphum.Hum.split('.')[0]}%--------<b>Lämpötila:</b> {temphum.Temp.split('.')[0]}</div>
+        charthumData.push({ x: String(measurementTime), y: parseInt(temphum.Hum), label: parseInt(temphum.Hum)+"%" });
+        chartTickFormat.push( String(measurementTime));
+        return <div key={CountID++}> <b>Pvm: </b> {measurementDate}, <b>klo:</b> {measurementTime}--------<b>Ilmankosteus:</b> {temphum.Hum.split('.')[0]}%--------<b>Lämpötila:</b> {temphum.Temp.split('.')[0]}</div>
     })
 
-    console.log(chartTempDataDots);
     const showTempDataDots = chartTempDataDots;
-    console.log(chartTempDataLine);
-    const showTempDataLine = chartTempDataLine;
-    console.log(charthumData);
     const showhumData = charthumData;
-    console.log(chartData);
-    const showData = chartData;
+    const showTickFormat = chartTickFormat;
 
     
 
@@ -60,37 +56,35 @@ function Weather() {
 
 
             <VictoryChart
-                domainPadding={{ x: 30, y: 10 }}
-                width={1000}
-                height={250}
+                domainPadding={{ x: 15, y: 50 }}
+                width={1400}
+                height={350}
 
-                containerComponent={
-                    <VictoryVoronoiContainer
-                        mouseFollowTooltips
-                        voronoiDimension="x"
-                        labels={({ datum }) => `y: ${datum.y},
-      x: ${datum.x}`}
-                    />
+                containerComponent={<VictoryVoronoiContainer />}
+>
+                <VictoryGroup
+                    color="#c43a31"
+                    labels={({ datum }) => `y: ${datum.y},
+                    x: ${datum.x}`}
+                    
+                
+                    labelComponent={
+                        <VictoryTooltip
+                            style={{ fontSize: 20}}
+                        /> 
+
                 }
-            >
 
+                data={showTempDataDots}
+                >
+                <VictoryLine/>
                 <VictoryScatter
-                    style={{ data: { fill: "red" }, labels: { fill: "red" } }}
-                    data={showTempDataDots}
-                />
-                <VictoryLine
-                    data={showTempDataLine}
+                    size={({ active }) => active ? 8 : 3}
+                    color="blue"
 
-
-                    style={{
-                        data:
-
-                            { stroke: "blue", strokeWidth: 2 }
-                    }}
-                    x="experiment"
-                    y="actual"
                 />
 
+                </VictoryGroup>
 
             </VictoryChart>
 
@@ -99,19 +93,21 @@ function Weather() {
             </div>
 
             <VictoryChart
-
-                const color="#969696"
                 theme={VictoryTheme.material}
-                domainPadding={{ x: 30, y: 10 }}
-                width={1000}
-                height={250}>
+                domainPadding={{ x: 150, y: 50 }}
+                width={1400}
+                height={350}>
 
 
-                <VictoryBar
-                    data={showData}
-                    x="quarter"
-                    y="earnings"
+                <VictoryAxis
+                     tickFormat={showTickFormat}
                 />
+
+                <VictoryAxis
+                    dependentAxis
+                    tickFormat={(x) => (`${x}`)}
+                />
+
                 <VictoryBar
                     data={showhumData}
                 />
