@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { VictoryChart, VictoryLine, VictoryBar, VictoryTheme, VictoryScatter, VictoryVoronoiContainer, VictoryAxis, VictoryGroup, VictoryTooltip } from 'victory'
 
-function Weather() {
+function Weather() { 
 
 
     const today = new Date();
@@ -56,9 +56,9 @@ function Weather() {
 
 
             <VictoryChart
-                domainPadding={{ x: 15, y: 50 }}
-                width={1400}
-                height={350}
+                domainPadding={{ x: 15, y: 50 }} //VictoryLine koko
+                width={1400} // VictoryLine leveys
+                height={350} // VictoryLine pituus
 
                 containerComponent={<VictoryVoronoiContainer />}
 >
@@ -94,9 +94,9 @@ function Weather() {
 
             <VictoryChart
                 theme={VictoryTheme.material}
-                domainPadding={{ x: 150, y: 50 }}
-                width={1400}
-                height={350}>
+                domainPadding={{ x: 150, y: 50 }} // VictoryBar koko
+                width={1400} // VictoryBar leveys
+                height={350}> // VictoryBar Pituus 
 
 
                 <VictoryAxis
