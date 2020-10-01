@@ -24,7 +24,7 @@ function Weather() {
     const rows = () => weather.slice(0, 24).reverse().map(temphum => {
         const measurementDate = temphum.PublishedAt.split('T')[0].split('-')[2] + '.' + temphum.PublishedAt.split('T')[0].split('-')[1] + '.' + temphum.PublishedAt.split('T')[0].split('-')[0]
         const measurementTime = temphum.PublishedAt.split('T')[1].split(':')[0] + ':' + temphum.PublishedAt.split('T')[1].split(':')[1]
-        chartTempDataDots.push({ Time: String(measurementTime), Temperature: parseInt(temphum.Temp) });
+        chartTempDataDots.push({ x: String(measurementTime), y: parseInt(temphum.Temp) });
         chartTempDataLine.push({ experiment: String(measurementTime), actual: parseInt(temphum.Temp) });
         charthumData.push({ x: String(measurementTime), y: parseInt(temphum.Hum), label: parseInt(temphum.Hum)+"%" });
         chartTickFormat.push( String(measurementTime));
