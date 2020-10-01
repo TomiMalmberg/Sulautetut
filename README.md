@@ -1,5 +1,5 @@
 react dom: luo linkit.
-victorychart: on käärekomponentti, joka tarjoaa oletusakselin komponenteille välitettyjen tietojen perusteella.
+victorychart: on komponentti, joka tarjoaa oletusakselin komponenteille välitettyjen tietojen perusteella.
 weather: hakee säätieto sivun, missä näkyy kosteus ja lämpötila.
 
 
