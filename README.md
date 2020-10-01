@@ -1,3 +1,8 @@
+react dom: luo linkit.
+victorychart: on käärekomponentti, joka tarjoaa oletusakselin komponenteille välitettyjen tietojen perusteella.
+weather: hakee säätieto sivun, missä näkyy kosteus ja lämpötila.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

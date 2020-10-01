@@ -4,16 +4,16 @@ import { VictoryChart, VictoryLine, VictoryBar, VictoryTheme, VictoryScatter, Vi
 function Weather() { 
 
 
-    const today = new Date();
-    const date = today.getDate() + "." + parseInt(today.getMonth() + 1) + "." + today.getFullYear();
+    const today = new Date(); // Hakee Päivämäärän
+    const date = today.getDate() + "." + parseInt(today.getMonth() + 1) + "." + today.getFullYear(); // Rakentaa Päivämäärän Muotoon: päivä.kuukausi.vuosi
 
-    const initWeather = [];
+    const initWeather = []; // asettaa säätietojen tilan
     const [weather, setWeather] = useState(initWeather);
 
 
     fetch('https://funcvariaiot.azurewebsites.net/api/HttpTriggerGetIotData?code=qO5qkShg0osHqY0BB2nfXI/anPgQ/K/3mIF7VTCFfaTdrvo6wl6DKw==&amount=50')
         .then(response => response.json())
-        .then(json => setWeather([...json]));
+        .then(json => setWeather([...json])); // hakee kosteuden ja lämpötilan datan jason muodossa REST API rajapinnasta
 
 
     let chartTempDataDots = [];
@@ -29,16 +29,16 @@ function Weather() {
         charthumData.push({ x: String(measurementTime), y: parseInt(temphum.Hum), label: parseInt(temphum.Hum)+"%" });
         chartTickFormat.push( String(measurementTime));
         return <div key={CountID++}> <b>Pvm: </b> {measurementDate}, <b>klo:</b> {measurementTime}--------<b>Ilmankosteus:</b> {temphum.Hum.split('.')[0]}%--------<b>Lämpötila:</b> {temphum.Temp.split('.')[0]}</div>
-    })
+    }) // Loop Joka Parseroi Rajapinnasta Saatuja Tietoja Victorychartin Vaatimaan Muotoon
 
-    const showTempDataDots = chartTempDataDots;
-    const showhumData = charthumData;
-    const showTickFormat = chartTickFormat;
+    const showTempDataDots = chartTempDataDots; // Lämpötila Victorychartin vaatimassa muodossa
+    const showhumData = charthumData; // Kosteus Victorychartin Vaatimassa Muodossa
+    const showTickFormat = chartTickFormat; // Kosteus Victorychartin Vaatimassa Muodossa
 
     
 
     return (
-        <div aling="center">
+        <div aling="center"> 
             <div>
                 <h3>Piirrettävän chartin raaka data</h3>
             </div>
@@ -75,7 +75,7 @@ function Weather() {
 
                 }
 
-                data={showTempDataDots}
+                data={showTempDataDots} // Lämpötila Data
                 >
                 <VictoryLine/>
                 <VictoryScatter
@@ -92,11 +92,12 @@ function Weather() {
                 <h2>Ilmankosteus</h2>
             </div>
 
-            <VictoryChart
+            <VictoryChart 
                 theme={VictoryTheme.material}
                 domainPadding={{ x: 150, y: 50 }} // VictoryBar koko
                 width={1400} // VictoryBar leveys
-                height={350}> // VictoryBar Pituus 
+                height={350} // VictoryBar Pituus
+                > 
 
 
                 <VictoryAxis
@@ -109,16 +110,13 @@ function Weather() {
                 />
 
                 <VictoryBar
-                    data={showhumData}
+                    data={showhumData} // Kosteuden Data
                 />
 
             </VictoryChart>
         </div>
 
     )
-
-
-
 
 }
 
